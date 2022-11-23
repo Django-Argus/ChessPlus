@@ -6,19 +6,30 @@ import java.util.Map;
 import net.argus.chessplus.gui.Location;
 import net.argus.chessplus.gui.piece.Piece;
 
-public class ChessBord {
+public abstract class ChessBordDefault {
 	
 	private Map<Location, Piece> map = new HashMap<Location, Piece>();
 	
-	public ChessBord() {
-		
+	public ChessBordDefault() {
+		init();
 	}
+	
+	public abstract void init();
 	
 	public void add(Location loc, Piece piece) {
 		map.put(loc, piece);
 	}
 	
-	public class Normal extends ChessBord {
+	public void apply() {
+		
+	}
+	
+	public class Normal extends ChessBordDefault {
+
+		@Override
+		public void init() {
+			
+		}
 		
 	}
 
