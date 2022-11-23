@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import net.argus.chessplus.core.Location;
+
 public class ChessPanel extends JComponent {
 
 	/**

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import net.argus.chessplus.core.Location;
 import net.argus.chessplus.gui.piece.Piece;
 
 public class Cell {
@@ -33,6 +34,7 @@ public class Cell {
 	public void draw(Graphics2D g) {
 		g.setColor(getColor(getLocation()));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+
 		if(piece != null)
 			piece.draw(g);
 	}
