@@ -1,5 +1,7 @@
 package net.argus.chessplus.core.pieces;
 
+import java.awt.Point;
+
 import net.argus.chessplus.core.ChessBoard;
 import net.argus.chessplus.core.Location;
 
@@ -11,6 +13,11 @@ public class Knight extends ChessPiece {
 
 	@Override
 	public boolean isMove(Location currentLoc, Location newLoc) {
+		Point cur = currentLoc.getPosition();
+		Point ne = newLoc.getPosition();
+		
+		
+		
 		return true;
 	}
 

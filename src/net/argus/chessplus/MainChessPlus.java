@@ -12,12 +12,13 @@ public class MainChessPlus extends CardinalProgram {
 
 	@Override
 	public void main(String[] args) throws InstanceException {
-		ChessEvent.init();
-		/*
+		/*ChessEvent.init();
+		
+		
 		ChessPFrame frame = new ChessPFrame();
 		
-		frame.setVisible(true);*/
-		
+		frame.setVisible(true);
+		*/
 		ChessBoard b = new ChessBoard(new BasicChessBoard());
 		b.move(Location.get("a2"), Location.get("b3"));
 	}
