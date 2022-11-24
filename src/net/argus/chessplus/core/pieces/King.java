@@ -2,6 +2,7 @@ package net.argus.chessplus.core.pieces;
 
 import java.awt.Point;
 
+import net.argus.chessplus.core.Chess;
 import net.argus.chessplus.core.ChessBoard;
 import net.argus.chessplus.core.Location;
 
@@ -28,6 +29,10 @@ public class King extends ChessPiece {
 		Point ne = newLoc.getPosition();
 		
 		return false;
+	}
+	
+	public Chess chess() {
+		
 	}
 
 }
