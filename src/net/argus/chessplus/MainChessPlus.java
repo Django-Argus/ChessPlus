@@ -20,7 +20,7 @@ public class MainChessPlus extends CardinalProgram {
 		frame.setVisible(true);
 		*/
 		ChessBoard b = new ChessBoard(new BasicChessBoard());
-		b.move(Location.get("a2"), Location.get("b3"));
+		b.move(Location.get("a2"), Location.get("b3"));		
 	}
 
 }
