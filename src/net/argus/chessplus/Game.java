@@ -33,7 +33,7 @@ public class Game {
 	
 	private String promote = "";
 	
-	public Game(MainChess main, ClientPear pear, Team yTeam, String host, int port) throws UnknownHostException {
+	public Game(MainChess main, ClientPear pear, Team yTeam) throws UnknownHostException {
 		this.main = main;
 		this.pear = pear;
 		this.yTeam = yTeam;
@@ -100,7 +100,7 @@ public class Game {
 			
 			@Override
 			public void endGame(ChessEvent e) {
-				
+				main.endGame(e.getSource().getTeam()!=yTeam, e.isMate());
 			}
 			
 			@Override

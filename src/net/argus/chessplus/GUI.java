@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.argus.chessplus.core.team.Team;
@@ -116,6 +117,7 @@ public class GUI {
 		dial.setResizable(false);
 		dial.setAlwaysOnTop(true);
 		dial.setLocationRelativeTo(fen);
+		dial.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		fen.setEnabled(false);
 		dial.setVisible(true);
@@ -140,11 +142,25 @@ public class GUI {
 	public void showGameFrame(JFrame fen, Game game) {
 		fen.setContentPane(game.getBoardPanel());
 		
-		fen.setSize(700, 700);
+		fen.pack();
 		fen.setLocationRelativeTo(null);
 		fen.setResizable(false);
 		fen.setVisible(true);
 		fen.repaint();
+	}
+	
+	public void showEndGameDialog(JFrame fen, boolean victory, boolean mate) {
+		int icon = JOptionPane.INFORMATION_MESSAGE;
+		String message = "Victory!\n1-0";
+		if(!victory && mate) {
+			message = "Defeat!\n0-1";
+			icon = JOptionPane.ERROR_MESSAGE;
+		}else if(!mate) {
+			message = "Draw!\n½-½";
+			icon = JOptionPane.QUESTION_MESSAGE;
+		}
+		
+		JOptionPane.showMessageDialog(fen, message, "End Game", icon);
 	}
 	
 	private ActionListener getChooseActionListener() {

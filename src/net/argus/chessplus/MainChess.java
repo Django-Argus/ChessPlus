@@ -8,6 +8,9 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import net.argus.chessplus.core.board.ChessBoard;
 import net.argus.chessplus.core.pieces.ChessPiece;
@@ -34,31 +37,28 @@ public class MainChess extends CardinalProgram {
 	
 	@Override
 	public void main(String[] args) throws InstanceException {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		gui = new GUI(this);
 		fen = new ChessFrame();
 		
-		fen.setDefaultCloseOperation(3);
+		String host = UserSystem.getProperty("host");
+		int port = UserSystem.getIntegerProperty("port");
+		
+		if(host == null || host.equals("") || port < 0) {
+			Debug.log("Host or port are null");
+			JOptionPane.showMessageDialog(null, "Host or port are null", "Error", JOptionPane.ERROR_MESSAGE);
+			UserSystem.exit(ExitCode.ERROR);
+		}
 		
 		try {
-			pear = new ClientPear("localhost", 2354);
+			pear = new ClientPear(host, port);
 			gui.showChooseDialog(fen);
 		}catch(UnknownHostException e) {e.printStackTrace();}
-		
-		/*
-		
-		try {
-			Team team = Team.BLACK ;
-			ChessBoard board = new ChessBoard(new BasicChessBoard());
-			
-			ChessBoardPanel pan = new ChessBoardPanel(board, 80, team);
-			Game game = new Game(pan, team, "localhost", 2354);
-			game.match();
-			
-			fen.setContentPane(pan);
-			fen.setVisible(true);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 	private PearListener getDefaultPearListener() {
@@ -71,7 +71,7 @@ public class MainChess extends CardinalProgram {
 					t = Team.WHITE;
 				
 				try {
-					Game game = new Game(this, pear, t, "localhost", 2354);
+					Game game = new Game(this, pear, t);
 					pear.addPearListener(game.getPearListener());
 					gui.showGameFrame(fen, game);
 				} catch (UnknownHostException e1) {
@@ -87,6 +87,7 @@ public class MainChess extends CardinalProgram {
 			pear.addPearListener(getDefaultPearListener());
 		}catch(IOException e) {
 			Debug.log("No server avaliable");
+			JOptionPane.showMessageDialog(fen, "No server avaliable at " + pear.getHost().getCanonicalHostName() + ":" + pear.getPort(), "Error", JOptionPane.ERROR_MESSAGE);
 			UserSystem.exit(ExitCode.VALID);
 		}
 		gui.showWaitingDialog(fen);
@@ -116,6 +117,10 @@ public class MainChess extends CardinalProgram {
 			fen.setEnabled(true);
 			dial.setVisible(false);
 		};
+	}
+	
+	public void endGame(boolean victory, boolean mate) {
+		gui.showEndGameDialog(fen, victory, mate);
 	}
 
 }
