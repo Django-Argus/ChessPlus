@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Class-Path: .
-Launcher-Args: -name "%name%" -id 0xjar -log false -update false -host localhost -port 2354
+Launcher-Vm-Args: -Dhost=localhost -Dport=2354
+Launcher-Args: -name "%name%" -id 0xjar -log false -update false
 Launcher-Class-Path: %path%%name%.%suf%
 Main-Instance-Class: net.argus.chessplus.MainChess
 Main-Class: net.argus.system.ProgramLauncher
